@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\ChatGPTService;
+use Illuminate\Http\Request;
 
-class ChatController extends Controller
+class ChatApiController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $service = new ChatGPTService();
-        $response = $service->askToChatGPT('Создай стишок про суслика');
+        $response = $service->askToChatGPT($request->get('prompt'));
         $message = $response['choices'][0]['text'];
 
         return $message;

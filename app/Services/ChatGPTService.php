@@ -10,12 +10,13 @@ class ChatGPTService {
 
     public function askToChatGPT($prompt)
     {
+        $text = 'Интерпретируй текст большого объёма в короткий и понятный текст:';
         $response = Http::withoutVerifying()
             ->withHeaders([
                 'Authorization' => 'Bearer ' . env('CHATGPT_API_KEY'),
                 'Content-Type' => 'application/json',
             ])->post('https://api.openai.com/v1/engines/text-davinci-003/completions', [
-                "prompt" => $prompt,
+                "prompt" => $text.$prompt,
                 "max_tokens" => 1000,
                 "temperature" => 0.5
             ]);
@@ -24,30 +25,5 @@ class ChatGPTService {
     }
 
 
-
-//private $client;
-
-//public function __construct() {
-//$this->client = new Client([
-//'base_uri' => 'https://api.openai.com/',
-//RequestOptions::VERIFY => false,
-//'headers' => [
-//'Content-Type' => 'application/json',
-//'Authorization' => 'Bearer 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',
-//],
-//]);
-//}
-//
-//public function getResponse($prompt) {
-//$response = $this->client->request('POST', 'v1/engines/text-davinci-003/completions', [
-//'json' => [
-//'prompt' => $prompt,
-//'max_tokens' => 500,
-//'temperature' => 0.7,
-//],
-//]);
-//
-//return json_decode($response->getBody(), true);
-//}
 }
 
